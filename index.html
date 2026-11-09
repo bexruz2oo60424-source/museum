@@ -4,14 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marry Me Muzeyi</title>
+    <!-- A-Frame kutubxonasi 3D olam yaratish uchun -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
 </head>
 <body>
     <a-scene>
-        <a-box position="0 0 0" width="10" height="4" depth="20" color="#f9f3eb" material="side: double"></a-box>
-        <a-plane position="0 0.01 0" rotation="-90 0 0" width="2" height="18" color="#d90429"></a-plane>
-        <a-light type="ambient" color="#fff"></a-light>
-        <a-camera position="0 1.6 9"></a-camera>
+        <!-- Osmon va muhit yorug'ligi -->
+        <a-sky color="#0d0d0d"></a-sky>
+        <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
+        <a-light type="directional" position="0 5 0" intensity="0.5"></a-light>
+
+        <!-- Muzey zali zamin (Pol) -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="14" height="40" color="#1a1a1a" material="roughness: 0.1"></a-plane>
+        <!-- Shift -->
+        <a-plane position="0 6 0" rotation="90 0 0" width="14" height="40" color="#111111"></a-plane>
+
+        <!-- Qizil gilam yo'lakcha (videodagidek markazda) -->
+        <a-plane position="0 0.01 0" rotation="-90 0 0" width="3" height="38" color="#b30000"></a-plane>
+
+        <!-- Chap devor -->
+        <a-box position="-7 3 0" width="0.2" height="6" depth="40" color="#e6e6e6"></a-box>
+        <!-- O'ng devor -->
+        <a-box position="7 3 0" width="0.2" height="6" depth="40" color="#e6e6e6"></a-box>
+
+        <!-- Marry Me asosiy peshona yozuvi -->
+        <a-text value="Marry Me, Muxlisa ❤️" position="0 4.5 -18" align="center" color="#ff1a1a" scale="5 5 5"></a-text>
+
+        <!-- Chap devordagi rasm ramkalari galeriyasi -->
+        <a-box position="-6.8 3 -4" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="0.06 0 0" rotation="0 90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+        <a-box position="-6.8 3 -9" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="0.06 0 0" rotation="0 90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+        <a-box position="-6.8 3 -14" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="0.06 0 0" rotation="0 90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+
+        <!-- O'ng devordagi rasm ramkalari galeriyasi -->
+        <a-box position="6.8 3 -4" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="-0.06 0 0" rotation="0 -90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+        <a-box position="6.8 3 -9" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="-0.06 0 0" rotation="0 -90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+        <a-box position="6.8 3 -14" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="-0.06 0 0" rotation="0 -90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+
+        <!-- Harakatlanish uchun kamera va boshqaruv -->
+        <a-camera position="0 1.6 15">
+            <a-cursor></a-cursor>
+        </a-camera>
     </a-scene>
 </body>
 </html>
