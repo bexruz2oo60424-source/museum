@@ -3,47 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marry Me Muzeyi</title>
-    <!-- A-Frame kutubxonasi 3D olam yaratish uchun -->
+    <title>3D Marry Me Muzeyi</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <style>
+        #ui-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: sans-serif;
+            font-size: 12px;
+            max-width: 240px;
+        }
+        #ui-panel input {
+            width: 100%;
+            margin: 4px 0 8px 0;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Telefon va Brauzerdan Ism hamda Rasmlarni o'zgartirish Paneli -->
+    <div id="ui-panel">
+        <label><b>Ismni yozing:</b></label>
+        <input type="text" id="nameInput" placeholder="Masalan: Muxlisa" oninput="updateName(this.value)">
+        
+        <label><b>1-Ramkaga rasm:</b></label>
+        <input type="file" accept="image/*" onchange="uploadImage(event, 0)">
+        
+        <label><b>2-Ramkaga rasm:</b></label>
+        <input type="file" accept="image/*" onchange="uploadImage(event, 1)">
+    </div>
+
     <a-scene>
-        <!-- Osmon va muhit yorug'ligi -->
-        <a-sky color="#0d0d0d"></a-sky>
-        <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
-        <a-light type="directional" position="0 5 0" intensity="0.5"></a-light>
+        <!-- Tungi osmon va illüminatsiya yoritilishi -->
+        <a-sky color="#050510"></a-sky>
+        <a-light type="ambient" color="#ffffff" intensity="0.6"></a-light>
+        <a-light type="directional" position="0 8 -5" intensity="0.7"></a-light>
 
-        <!-- Muzey zali zamin (Pol) -->
-        <a-plane position="0 0 0" rotation="-90 0 0" width="14" height="40" color="#1a1a1a" material="roughness: 0.1"></a-plane>
-        <!-- Shift -->
-        <a-plane position="0 6 0" rotation="90 0 0" width="14" height="40" color="#111111"></a-plane>
+        <!-- Muzey zali (Pol, Shift, Devorlar) -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="14" height="40" color="#1a1a24" material="roughness: 0.2"></a-plane>
+        <a-plane position="0 7 0" rotation="90 0 0" width="14" height="40" color="#0a0a10"></a-plane>
+        <a-box position="-7 3.5 0" width="0.2" height="7" depth="40" color="#222230"></a-box>
+        <a-box position="7 3.5 0" width="0.2" height="7" depth="40" color="#222230"></a-box>
 
-        <!-- Qizil gilam yo'lakcha (videodagidek markazda) -->
-        <a-plane position="0 0.01 0" rotation="-90 0 0" width="3" height="38" color="#b30000"></a-plane>
+        <!-- Qizil Gilam -->
+        <a-plane position="0 0.01 0" rotation="-90 0 0" width="3" height="38" color="#a00000"></a-plane>
 
-        <!-- Chap devor -->
-        <a-box position="-7 3 0" width="0.2" height="6" depth="40" color="#e6e6e6"></a-box>
-        <!-- O'ng devor -->
-        <a-box position="7 3 0" width="0.2" height="6" depth="40" color="#e6e6e6"></a-box>
+        <!-- Dinamik Peshona Yozuvi -->
+        <a-text id="museumTitle" value="Marry Me, Muxlisa ❤️" position="0 4.5 -18" align="center" color="#ff3366" scale="4.5 4.5 4.5"></a-text>
 
-        <!-- Marry Me asosiy peshona yozuvi -->
-        <a-text value="Marry Me, Muxlisa ❤️" position="0 4.5 -18" align="center" color="#ff1a1a" scale="5 5 5"></a-text>
+        <!-- 3D PINGVINCHA (Kirishda mehmonga qarab turadi) -->
+        <a-entity position="-2 0 8" rotation="0 30 0">
+            <!-- Tana va Qorin -->
+            <a-sphere position="0 0.8 0" radius="0.5" color="#111111" scale="1 1.4 1"></a-sphere>
+            <a-sphere position="0 0.8 0.15" radius="0.4" color="#ffffff" scale="0.9 1.2 0.7"></a-sphere>
+            <!-- Bosh va Ko'zlar -->
+            <a-sphere position="0 1.6 0" radius="0.35" color="#111111"></a-sphere>
+            <a-sphere position="-0.12 1.7 0.28" radius="0.06" color="#ffffff"></a-sphere>
+            <a-sphere position="-0.12 1.7 0.32" radius="0.03" color="#000000"></a-sphere>
+            <a-sphere position="0.12 1.7 0.28" radius="0.06" color="#ffffff"></a-sphere>
+            <a-sphere position="0.12 1.7 0.32" radius="0.03" color="#000000"></a-sphere>
+            <!-- Tumshug'i va Oyoqlari -->
+            <a-cone position="0 1.58 0.35" rotation="90 0 0" radius-bottom="0.08" height="0.2" color="#ff9900"></a-cone>
+            <a-box position="-0.15 0.05 0.1" width="0.2" height="0.05" depth="0.3" color="#ff9900"></a-box>
+            <a-box position="0.15 0.05 0.1" width="0.2" height="0.05" depth="0.3" color="#ff9900"></a-box>
+            <!-- Qanotlar -->
+            <a-box position="-0.45 0.8 0" rotation="0 0 20" width="0.1" height="0.7" depth="0.3" color="#111111"></a-box>
+            <a-box position="0.45 0.8 0" rotation="0 0 -20" width="0.1" height="0.7" depth="0.3" color="#111111"></a-box>
+        </a-entity>
 
-        <!-- Chap devordagi rasm ramkalari galeriyasi -->
-        <a-box position="-6.8 3 -4" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="0.06 0 0" rotation="0 90 0" width="2" height="2" color="#fff"></a-plane></a-box>
-        <a-box position="-6.8 3 -9" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="0.06 0 0" rotation="0 90 0" width="2" height="2" color="#fff"></a-plane></a-box>
-        <a-box position="-6.8 3 -14" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="0.06 0 0" rotation="0 90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+        <!-- SHAMLAR (Yoritgichli alanga bilan) -->
+        <a-cylinder position="-1.7 0.2 4" radius="0.08" height="0.4" color="#fff8dc"></a-cylinder>
+        <a-sphere position="-1.7 0.43 4" radius="0.04" color="#ffaa00" material="emissive: #ffaa00"></a-sphere>
+        <a-light type="point" position="-1.7 0.5 4" color="#ffaa00" intensity="0.6" distance="3"></a-light>
 
-        <!-- O'ng devordagi rasm ramkalari galeriyasi -->
-        <a-box position="6.8 3 -4" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="-0.06 0 0" rotation="0 -90 0" width="2" height="2" color="#fff"></a-plane></a-box>
-        <a-box position="6.8 3 -9" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="-0.06 0 0" rotation="0 -90 0" width="2" height="2" color="#fff"></a-plane></a-box>
-        <a-box position="6.8 3 -14" width="0.1" height="2.2" depth="2.2" color="#333"><a-plane position="-0.06 0 0" rotation="0 -90 0" width="2" height="2" color="#fff"></a-plane></a-box>
+        <a-cylinder position="1.7 0.2 4" radius="0.08" height="0.4" color="#fff8dc"></a-cylinder>
+        <a-sphere position="1.7 0.43 4" radius="0.04" color="#ffaa00" material="emissive: #ffaa00"></a-sphere>
+        <a-light type="point" position="1.7 0.5 4" color="#ffaa00" intensity="0.6" distance="3"></a-light>
 
-        <!-- Harakatlanish uchun kamera va boshqaruv -->
-        <a-camera position="0 1.6 15">
+        <!-- GULLAR (Oltin poydevor ustida guldastalar) -->
+        <a-cylinder position="2 0.4 7" radius="0.25" height="0.8" color="#d4af37"></a-cylinder>
+        <a-sphere position="2 0.9 7" radius="0.3" color="#ff1493"></a-sphere>
+        <a-sphere position="2.1 1.0 7" radius="0.2" color="#ff69b4"></a-sphere>
+
+        <!-- DEVORDAGI OLTIN RAMKALAR -->
+        <a-box position="-6.8 3 -2" width="0.1" height="2.5" depth="2.5" color="#d4af37">
+            <a-plane id="frame0" position="0.06 0 0" rotation="0 90 0" width="2.3" height="2.3" color="#ffffff"></a-plane>
+        </a-box>
+
+        <a-box position="6.8 3 -2" width="0.1" height="2.5" depth="2.5" color="#d4af37">
+            <a-plane id="frame1" position="-0.06 0 0" rotation="0 -90 0" width="2.3" height="2.3" color="#ffffff"></a-plane>
+        </a-box>
+
+        <!-- Kamera va Boshqaruv -->
+        <a-camera position="0 1.6 12">
             <a-cursor></a-cursor>
         </a-camera>
     </a-scene>
+
+    <script>
+        // URL parametrini o'qish (Telegram bot havolani ?name=Ism ko'rinishida yuborishi uchun)
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameParam = urlParams.get('name');
+        if (nameParam) {
+            document.getElementById('museumTitle').setAttribute('value', 'Marry Me, ' + nameParam + ' ❤️');
+        }
+
+        // Ekrandagi menyudan ismni jonli o'zgartirish
+        function updateName(val) {
+            const finalName = val.trim() !== "" ? val : "Muxlisa";
+            document.getElementById('museumTitle').setAttribute('value', 'Marry Me, ' + finalName + ' ❤️');
+        }
+
+        // Galereyaga rasm yuklash
+        function uploadImage(event, frameIndex) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const frame = document.getElementById('frame' + frameIndex);
+                    frame.setAttribute('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </body>
 </html>
